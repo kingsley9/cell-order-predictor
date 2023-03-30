@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import './HomePage.css';
-import { API_URL } from '../api';
+import { API_URL } from '../../api';
 
 const HomePage = () => {
   const [file, setFile] = useState(null); // Initialize the state with a null value

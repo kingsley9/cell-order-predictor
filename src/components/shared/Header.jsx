@@ -18,9 +18,6 @@ const Header = () => {
         <Link to="/about" className="menu-item">
           About
         </Link>
-        <Link to="/admin/login" className="menu-item">
-          Login
-        </Link>
       </div>
     </div>
   );
