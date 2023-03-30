@@ -8,7 +8,7 @@ const HomePage = () => {
 
   function handleFileSelect(event) {
     const selectedFile = event.target.files[0];
-    console.log(selectedFile.name); // Print the name of the selected file to the console
+    console.log(selectedFile?.name); // Print the name of the selected file to the console
     setFile(selectedFile); // Update the state with the selected file
   }
 
