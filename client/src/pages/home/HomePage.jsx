@@ -28,7 +28,11 @@ const HomePage = () => {
       body: formData,
     })
       .then((response) => {
-        console.log(response); // Log the response from the server
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data); // Log the response from the server
+        console.log(data.predictions);
         // Handle the response as needed
       })
       .catch((error) => {

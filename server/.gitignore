@@ -1,0 +1,6 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# virtual environment folder
+/server_env
+requirements.txt
+__pycache__/
