@@ -1,3 +1,4 @@
+import os
 import tempfile
 from flask import Flask, request
 from flask_restful import Resource, Api
@@ -6,6 +7,7 @@ import nbformat
 import uuid
 import json
 import pandas as pd
+import torch
 
 
 from md_cell_predictor import MarkdownModel, predict
@@ -20,6 +22,18 @@ app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
 
 # Model
 model = MarkdownModel()
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# Load the state from the specified file
+model_path = "./input/ai4code-deberta-v3-base/model_best.pth"
+state = torch.load(model_path, map_location=torch.device('cpu'))
+
+# Update the model with the loaded state
+model.load_state_dict(state)
+
+# Move the model to the appropriate device
+model = model.to(device)
 
 
 def notebook_to_dataframe(path, notebook_id):
@@ -76,7 +90,14 @@ class UploadResource(Resource):
             df_data = notebook_to_dataframe(filepath, notebook_id)
         # print("df:", df_data)
         filename = uuid.uuid4().hex[:14] + '.json'
-        with open(filename, 'w') as f:
+
+        # Create the output directory if it doesn't exist
+        output_dir = "./output/"
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        # Write the JSON file to the output directory
+        with open(output_dir + filename, 'w') as f:
             json.dump(df_data.to_dict(), f, indent=4)
         # Make predictions using the pre-trained model and the provided data
         predictions = predict(model, df_data)

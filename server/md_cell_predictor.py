@@ -38,7 +38,6 @@ class MarkdownDataset(Dataset):
         self.tokenizer = AutoTokenizer.from_pretrained(
             BERT_PATH, do_lower_case=True, use_fast=True)
 
-
     def __getitem__(self, index):
         row = self.df.iloc[index]
 

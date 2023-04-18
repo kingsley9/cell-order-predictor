@@ -1,0 +1,65 @@
+{
+    "id": {
+        "0": "b428d7e52cc34d",
+        "1": "b428d7e52cc34d",
+        "2": "b428d7e52cc34d",
+        "3": "b428d7e52cc34d",
+        "4": "b428d7e52cc34d",
+        "5": "b428d7e52cc34d",
+        "6": "b428d7e52cc34d"
+    },
+    "cell_id": {
+        "0": "ab93c617",
+        "1": "ebaf4767",
+        "2": "b18930f7",
+        "3": "2d630cdd",
+        "4": "dcced239",
+        "5": "dedbba0d",
+        "6": "bf9bae91"
+    },
+    "cell_type": {
+        "0": "markdown",
+        "1": "markdown",
+        "2": "code",
+        "3": "code",
+        "4": "markdown",
+        "5": "code",
+        "6": "markdown"
+    },
+    "source": {
+        "0": "We will show how to assign values to variables",
+        "1": "# Hello world",
+        "2": "i=9\nj=i*i;",
+        "3": "for k in range(j):\n    k=j+2+k;\nk",
+        "4": "## We will demonstrate the use of loops in a python notebook",
+        "5": "p=1\nwhile(p<30):\n    test=p+2;\n    p+=1\n",
+        "6": "# loops have various uses and advantages"
+    },
+    "rank": {
+        "0": 0,
+        "1": 1,
+        "2": 0,
+        "3": 1,
+        "4": 2,
+        "5": 2,
+        "6": 3
+    },
+    "pred": {
+        "0": 0.25,
+        "1": 0.5,
+        "2": 0.3333333333333333,
+        "3": 0.6666666666666666,
+        "4": 0.75,
+        "5": 1.0,
+        "6": 1.0
+    },
+    "pct_rank": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0
+    }
+}
