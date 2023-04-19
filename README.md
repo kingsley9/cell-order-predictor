@@ -6,8 +6,8 @@ This project is a cell order predictor for Jupyter notebooks that predicts the o
 
 The main components of this system include:
 
-- **Python Flask Server**: Handles file uploads and processes the input Jupyter notebooks, making predictions using the pre-trained model.
-- **Markdown Cell Predictor**: A Python script that includes the pre-trained model and necessary functions to predict the order of markdown cells.
+- **Python Flask Server**: Handles file uploads and processes the input Jupyter notebooks, making predictions using the cell predictor script
+- **Markdown Cell Predictor**: A Python script that includes the pre-trained and fine tuned model as well as necessary functions to predict the order of markdown cells.
 - **React Front-end**: A user interface for uploading Jupyter notebooks and viewing the predicted cell order.
 
 ## Installation and Setup
