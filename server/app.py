@@ -8,8 +8,6 @@ import uuid
 import json
 import pandas as pd
 import torch
-
-
 from md_cell_predictor import initialize_model, predict
 
 
