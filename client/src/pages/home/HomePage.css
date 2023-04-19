@@ -47,16 +47,22 @@
 }
 
 .file-upload-btn {
-    background-color: #a02f06;
-
-  color: #FFFFFF;
+   background-color: #4327a1;
+  color: white;
   font-weight: bold;
   font-size: 14px;
-  padding: 5px 10px;
-  border-radius: 7px;
+  border: none;
+  border-radius: 15px;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  text-decoration: none;
   align-self: flex-end;
 }
 
+.file-upload-btn:hover {
+    background-color: #665894;
+    
+  }
 .file-upload-container {
   display: flex;
   align-items: center;
