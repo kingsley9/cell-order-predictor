@@ -1,5 +1,6 @@
 import React from 'react';
 import HomePage from './pages/home/HomePage';
+import DownloadPage from './pages/download/DownloadPage';
 import AboutPage from './pages/about/AboutPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/download/:notebookId" element={<DownloadPage />} />
         </Routes>
       </div>
       <Footer />

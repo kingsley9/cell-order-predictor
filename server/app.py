@@ -1,6 +1,8 @@
+import base64
+import io
 import os
 import tempfile
-from flask import Flask, request
+from flask import Flask, Response, jsonify, request, send_from_directory, send_file
 from flask_restful import Resource, Api
 from flask_cors import CORS
 import nbformat
@@ -9,6 +11,8 @@ import json
 import pandas as pd
 import torch
 from md_cell_predictor import initialize_model, predict
+from nbformat.v4 import new_notebook, new_markdown_cell, new_code_cell
+from nbconvert import HTMLExporter
 
 
 app = Flask(__name__)
@@ -40,28 +44,40 @@ def notebook_to_dataframe(path, notebook_id):
     df["pred"] = df.groupby(["id", "cell_type"])["rank"].rank(pct=True)
     df["pct_rank"] = 0
 
-    return df
+    return df, nb  # Return the original notebook as well
 
 
-def notebook_to_json(path):
-    with open(path) as f:
-        nb = nbformat.read(f, as_version=4)
-    cells = {}
-    sources = {}
-    for i, cell in enumerate(nb.cells):
-        cell_type = cell.cell_type
+def create_new_notebook(df_data, predictions):
+    nb = new_notebook()
+# Convert predictions from a Series to a list of cell IDs
+    cell_ids = predictions.tolist()[0].split(' ')
 
-        # Generate a unique ID
-        cell_id = str(uuid.uuid4())[:8]
-        cells[cell_id] = cell_type
-        sources[cell_id] = cell.source
-    root = {
-        "root": {
-            "cell_type": cells,
-            "source": sources
-        }
-    }
-    return root
+    # Sort df_data based on the order of the predictions
+    df_data = df_data.set_index('cell_id')
+    print("cell_iDs:", cell_ids)
+    print("DF:", df_data)
+    df_data = df_data.loc[cell_ids]
+    df_data = df_data.reset_index()
+    for index, row in df_data.iterrows():
+        cell_id = row.name
+        cell_type = row['cell_type']
+        source = row['source']
+
+        if cell_type == "markdown":
+            nb.cells.append(new_markdown_cell(source))
+        elif cell_type == "code":
+            nb.cells.append(new_code_cell(source))
+    print("DF:", df_data)
+
+    # Save the new notebook to a BytesIO object
+    notebook_data = io.BytesIO()
+    notebook_data.write(nbformat.writes(nb).encode())
+    notebook_data.seek(0)
+
+    return notebook_data, nb
+
+
+cache = {}
 
 
 class UploadResource(Resource):
@@ -73,7 +89,9 @@ class UploadResource(Resource):
             filepath = temp.name
             file.save(filepath)
             notebook_id = uuid.uuid4().hex[:14]
-            df_data = notebook_to_dataframe(filepath, notebook_id)
+            df_data, original_notebook = notebook_to_dataframe(
+                filepath, notebook_id)  # Get the original notebook
+
         # print("df:", df_data)
         filename = uuid.uuid4().hex[:14] + '.json'
 
@@ -89,11 +107,53 @@ class UploadResource(Resource):
         predictions = predict(model, df_data)
         print("preds:", predictions.to_dict()[0])
 
-        # Return the DataFrame data along with the predictions
-        return {"data": df_data.to_json(orient="records"), "predictions":  predictions.to_dict()[0]}
+        # Create a new notebook based on the predictions
+
+        cache[notebook_id] = {
+            "df_data": df_data,
+            "predictions": predictions,
+            "original_notebook": original_notebook,
+        }
+        return {"predictions":  predictions.to_dict()[0], "notebook_id": notebook_id}
+
+
+class DownloadResource(Resource):
+    # GET method
+    def get(self):
+        notebook_id = request.args.get("notebook_id")
+        if notebook_id in cache:
+            df_data = cache[notebook_id]["df_data"]
+            predictions = cache[notebook_id]["predictions"]
+            original_notebook = cache[notebook_id]["original_notebook"]
+
+            # Create the HTML output for both original and new notebooks
+            exporter = HTMLExporter()
+
+            # Get both the BytesIO object and the NotebookNode object
+            new_notebook_data, notebook_node = create_new_notebook(
+                df_data, predictions)
+            new_notebook_data.seek(0)
+            (original_html_output, _) = exporter.from_notebook_node(
+                original_notebook)  # Convert the original notebook to HTML
+            # Create the HTML output
+            (html_output, _) = exporter.from_notebook_node(notebook_node)
+
+            # Convert the bytes object to a base64-encoded string
+            notebook_base64 = base64.b64encode(
+                new_notebook_data.getvalue()).decode('utf-8')
+
+            response = jsonify({
+                'notebook': notebook_base64,
+                'html_output': html_output,
+                'original_html_output': original_html_output,
+            })
+
+            return response
+        else:
+            return {"error": "Notebook not found"}, 404
 
 
 api.add_resource(UploadResource, "/upload")
-
+api.add_resource(DownloadResource, "/download")
 if __name__ == "__main__":
     app.run()
