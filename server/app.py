@@ -10,7 +10,7 @@ import pandas as pd
 import torch
 
 
-from md_cell_predictor import initialize_model, predict
+from md_cell_predictor import MarkdownModel, predict
 
 
 app = Flask(__name__)
@@ -21,7 +21,19 @@ CORS(app)  # enable CORS for all routes
 app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
 
 # Model
-model = initialize_model()
+model = MarkdownModel()
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# Load the state from the specified file
+model_path = "./input/ai4code-deberta-v3-base/model_best.pth"
+state = torch.load(model_path, map_location=torch.device('cpu'))
+
+# Update the model with the loaded state
+model.load_state_dict(state)
+
+# Move the model to the appropriate device
+model = model.to(device)
 
 
 def notebook_to_dataframe(path, notebook_id):
