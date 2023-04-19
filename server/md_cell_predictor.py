@@ -1,5 +1,4 @@
-# your_code.py
-
+import os
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 import sys
@@ -7,9 +6,58 @@ import numpy as np
 from transformers import AutoModel, AutoTokenizer
 import torch.nn as nn
 import torch
-
 from torch.utils.data import DataLoader
-BERT_PATH = "./input/deberta-v3-base/"
+import tempfile
+import boto3
+from io import BytesIO
+from dotenv import load_dotenv
+
+load_dotenv()  # Load the environment variables from the .env file
+
+access_key = os.environ.get("access_key")
+secret_access_key = os.environ.get("secret_access_key")
+bucket_ARN = os.environ.get("bucket_ARN")
+
+
+# Setup
+client = boto3.client('s3', aws_access_key_id=access_key,
+                      aws_secret_access_key=secret_access_key)
+
+# S3 object keys
+MODEL_WEIGHTS_PATH = 'input/ai4code-deberta-v3-base/'
+BERT_PATH = 'input/deberta-v3-base/'
+
+# Set up BERT_PATH
+if not os.path.exists(BERT_PATH):
+    os.makedirs(BERT_PATH)
+
+    # Load BERT model from S3
+    for obj in client.list_objects(Bucket=bucket_ARN, Prefix=BERT_PATH)['Contents']:
+        filename = os.path.basename(obj['Key'])
+        client.download_file(
+            bucket_ARN, obj['Key'], os.path.join(BERT_PATH, filename))
+
+
+if not os.path.exists(MODEL_WEIGHTS_PATH):
+    os.makedirs(MODEL_WEIGHTS_PATH)
+    for obj in client.list_objects(Bucket=bucket_ARN, Prefix=MODEL_WEIGHTS_PATH)['Contents']:
+        filename = os.path.basename(obj['Key'])
+
+        # Load model and weights from S3
+        client.download_file(bucket_ARN, MODEL_WEIGHTS_PATH+'model_best.pth',
+                             os.path.join(MODEL_WEIGHTS_PATH, filename))
+
+
+def initialize_model():
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = MarkdownModel()
+    state = torch.load(MODEL_WEIGHTS_PATH+'model_best.pth',
+                       map_location=torch.device('cpu'))
+    model.load_state_dict(state)
+    model = model.to(device)
+    return model
+
+
 BS = 32
 NW = 8
 # Add your imports for MarkdownDataset, read_notebook, and other necessary functions here
