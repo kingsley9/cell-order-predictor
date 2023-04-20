@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import './HomePage.css';
 import { API_URL } from '../../api';
+import { css } from '@emotion/react';
+import { ClipLoader } from 'react-spinners';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  const [file, setFile] = useState(null); // Initialize the state with a null value
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   function handleFileSelect(event) {
     const selectedFile = event.target.files[0];
-    console.log(selectedFile?.name); // Print the name of the selected file to the console
-    setFile(selectedFile); // Update the state with the selected file
+    console.log(selectedFile?.name);
+    setFile(selectedFile);
   }
 
   function handleSubmit(event) {
@@ -20,6 +25,8 @@ const HomePage = () => {
       return;
     }
 
+    setLoading(true);
+
     const formData = new FormData();
     formData.append('file', file);
 
@@ -28,16 +35,16 @@ const HomePage = () => {
       body: formData,
     })
       .then((response) => {
+        setLoading(false);
         return response.json();
       })
       .then((data) => {
-        console.log(data); // Log the response from the server
+        console.log(data);
         console.log(data.predictions);
-        // Handle the response as needed
+        navigate(`/download/${data.notebook_id}`); // Navigate to downloads with notebookId as a parameter
       })
       .catch((error) => {
-        console.error(error); // Log any errors that occur
-        // Handle the error as needed
+        console.error(error);
       });
   }
 
@@ -59,6 +66,15 @@ const HomePage = () => {
                 onChange={handleFileSelect}
               />
               <Button className="file-upload-btn">Sort cells</Button>
+              <ClipLoader
+                css={css`
+                  display: inline-block;
+                  margin-left: 10px;
+                `}
+                size={20}
+                color={'#665894'}
+                loading={loading}
+              />
             </div>
           </FormGroup>
         </Form>
