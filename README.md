@@ -1,6 +1,6 @@
-# Cell-Order-Predictor
+# NotePredict
 
-This project is a cell order predictor for Jupyter notebooks that predicts the order of markdown cells using a pre-trained model. The system includes a Flask server that processes uploaded Jupyter notebooks and a React front-end that allows users to upload notebooks and view the predicted cell order.
+NotePredict is a powerful solution to the frustrating and time-consuming task of ordering markdown cells in Jupyter notebooks. By leveraging the power of machine learning, NotePredict predicts the optimal order of markdown cells, freeing up users' time and enabling them to focus on their research and analysis. With a user-friendly front-end, NotePredict makes it easy for users to upload their notebooks and view the predicted cell order. Our team's NotePredict project demonstrates the potential of machine learning to enhance software development, and we invite you to explore its possibilities with us
 
 ## System Components
 
