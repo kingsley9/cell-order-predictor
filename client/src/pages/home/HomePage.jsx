@@ -50,12 +50,14 @@ const HomePage = () => {
 
   return (
     <div className="home-container rounded border p-4">
+      <h1 className="file-upload-label">
+        <span>
+          Upload Notebook to Reorder Cells <br></br> (Readability Analysis)
+        </span>
+      </h1>
       <div className="home-upload-container">
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label className="file-upload-label">
-              Please Upload Your Notebook
-            </Label>
             <div className="file-upload-container">
               <Input
                 type="file"
@@ -65,7 +67,12 @@ const HomePage = () => {
                 className="file-upload-input"
                 onChange={handleFileSelect}
               />
-              <Button className="file-upload-btn">Sort cells</Button>
+            </div>
+          </FormGroup>
+        </Form>
+      </div>
+      <div>
+            <Button className="file-upload-btn">Sort cells</Button>
               <ClipLoader
                 css={css`
                   display: inline-block;
@@ -76,8 +83,26 @@ const HomePage = () => {
                 loading={loading}
               />
             </div>
-          </FormGroup>
-        </Form>
+
+      <div className="suggestion">
+        <div className="suggestion-text">
+          <div>No Notebook?</div>
+          <div>Try one of our notebooks:</div>
+        </div>
+        <div className="suggestion-size">
+          <a href="#" class="suggestion-example-notebook">
+            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+          </a>
+          <a href="#" class="suggestion-example-notebook">
+            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+          </a>
+          <a href="#" class="suggestion-example-notebook">
+            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+          </a>
+          <a href="#" class="suggestion-example-notebook">
+            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+          </a>
+        </div>
       </div>
     </div>
   );

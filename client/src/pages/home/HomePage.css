@@ -9,9 +9,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 100vh;
     width: 100%;
-  
+    background-image: url();
+    background-size: 150%;
+    background-position: center;
   }
   
   .home-upload-container {
@@ -22,17 +24,20 @@
     border: 1px solid rgba(128, 128, 128, 0.464);
     background-color:#F0F0F0;
     border-radius: 10px;
-    width: 30%;
-    height: 200px;
-    padding: 40px;
+    width: 25rem;
+    height: 20rem;
+    padding: 50px;
   }
   /* HomePage.css */
 
 .file-upload-label {
   display: inline-block;
+  margin-top: 50px;
   margin-bottom: 10px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 4rem;
+  text-align: center;
+  font-family: Poppins,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 }
 
 .file-upload-icon {
@@ -47,10 +52,10 @@
 }
 
 .file-upload-btn {
-   background-color: #4327a1;
+  background-color: #4327a1;
   color: white;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 20px;
   border: none;
   border-radius: 15px;
   padding: 0.5rem 0.7rem;
@@ -78,4 +83,36 @@
   padding: 10px;
   border-radius: 5px;
   width: 100%;
+}
+
+
+.suggestion {
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 80%;
+  text-align: center;
+}
+
+.suggestion-text {
+  margin: auto;
+}
+
+.suggestion-size {
+  font-size: 1rem;
+  min-width: 176px;
+}
+.suggestion-example-notebook {
+  display:inline-block;
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-bottom: 0px;
+  margin-right: 2px;
+  max-width: 40px;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+}
+
+.rounded-example {
+  width: 40px;
 }
