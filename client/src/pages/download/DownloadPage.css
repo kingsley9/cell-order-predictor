@@ -1,24 +1,27 @@
+
 .download-container {
   display: flex;
   align-items: center;
-  margin:auto;
   justify-content: center;
   width: 100%;
   padding: 40px;
-
+  
   background-color: #f7f7f7;
+  
 }
 
 .centered-box {
   display: flex;
   align-items: center;
+  
   justify-content: space-between;
   width: 70%;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  margin-bottom: 100px;
+  margin: 0 auto 100px;
+  
   
 }
 
@@ -26,13 +29,14 @@
   background-color: #4327a1;
   color: white;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 19px;
   border: none;
   border-radius: 15px;
   padding: 0.5rem 1rem;
   cursor: pointer;
   text-decoration: none;
-  margin-left:20%
+  margin-left:230px;
+  margin-bottom:50px;
   
 }
 .download-button:hover {
@@ -44,11 +48,14 @@
   color: #4327a1 !important;
   font-weight: bold !important;
   border-bottom: none !important;
+  
 }
 
 .react-tabs__tab {
   border: none !important;
   margin-right: 10px !important;
+  margin-bottom:10px;
+  
 }
 .react-tabs__tab--selected {
   border-bottom: none !important;
@@ -58,7 +65,9 @@
 }
 
 .react-tabs__tab-list {
-  border: none !important;
+  border-bottom: none !important;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .react-tabs__tab {
