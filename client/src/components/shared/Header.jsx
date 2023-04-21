@@ -6,12 +6,10 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        GROUP<span style={{ color: '#e35420' }}> 16</span>
+        GROUP<span style={{ color: '#4327a1' }}> 16</span>
       </div>
       <h1 className="title">
-        <span style={{ color: '#4327a1' }}>
-          Note<span style={{ color: '#e35420' }}>book</span>
-        </span>{' '}
+        <span style={{ color: '#e35420' }}>Notebook </span>
         Cell Order Predictor
       </h1>
       <div className="menu">
