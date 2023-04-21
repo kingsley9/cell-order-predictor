@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 import './HomePage.css';
 import { API_URL } from '../../api';
 import { css } from '@emotion/react';
@@ -15,21 +15,9 @@ const HomePage = () => {
     const selectedFile = event.target.files[0];
     console.log(selectedFile?.name);
     setFile(selectedFile);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (!file) {
-      console.log('No file selected');
-      return;
-    }
-
-    setLoading(true);
-
     const formData = new FormData();
-    formData.append('file', file);
-
+    formData.append('file', selectedFile);
+    setLoading(true);
     fetch(`${API_URL}/upload`, {
       method: 'POST',
       body: formData,
@@ -41,7 +29,7 @@ const HomePage = () => {
       .then((data) => {
         console.log(data);
         console.log(data.predictions);
-        navigate(`/download/${data.notebook_id}`); // Navigate to downloads with notebookId as a parameter
+        navigate(`/download/${data.notebook_id}`);
       })
       .catch((error) => {
         console.error(error);
@@ -51,33 +39,39 @@ const HomePage = () => {
   return (
     <div className="home-container rounded border p-4">
       <div className="home-upload-container">
-        <Form onSubmit={handleSubmit}>
+        {loading ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: 'auto',
+            }}
+          >
+            <ClipLoader
+              css={css`
+                display: inline-block;
+              `}
+              size={20}
+              color={'#665894'}
+              loading={loading}
+            />
+            <p style={{ marginLeft: '10px' }}>Sorting Notebook</p>
+          </div>
+        ) : (
           <FormGroup>
-            <Label className="file-upload-label">
-              Please Upload Your Notebook
+            <Label htmlFor="fileUpload" className="custom-upload-button">
+              Upload Notebook
             </Label>
-            <div className="file-upload-container">
-              <Input
-                type="file"
-                name="file"
-                id="fileUpload"
-                accept=".ipynb"
-                className="file-upload-input"
-                onChange={handleFileSelect}
-              />
-              <Button className="file-upload-btn">Sort cells</Button>
-              <ClipLoader
-                css={css`
-                  display: inline-block;
-                  margin-left: 10px;
-                `}
-                size={20}
-                color={'#665894'}
-                loading={loading}
-              />
-            </div>
+            <Input
+              type="file"
+              name="file"
+              id="fileUpload"
+              accept=".ipynb"
+              className="file-upload-input"
+              onChange={handleFileSelect}
+            />
           </FormGroup>
-        </Form>
+        )}
       </div>
     </div>
   );

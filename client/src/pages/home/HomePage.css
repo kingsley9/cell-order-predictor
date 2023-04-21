@@ -45,9 +45,12 @@
   padding: 10px;
   cursor: pointer;
 }
+.form-group input[type="file"] {
+  visibility: hidden;
+}
 
-.file-upload-btn {
-   background-color: #4327a1;
+.custom-upload-button {
+  background-color: #4327a1;
   color: white;
   font-weight: bold;
   font-size: 14px;
@@ -56,21 +59,17 @@
   padding: 0.5rem 0.7rem;
   cursor: pointer;
   text-decoration: none;
-  align-self: flex-end;
-}
-
-.file-upload-btn:hover {
-    background-color: #665894;
-    
-  }
-.file-upload-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: 150px;
-  justify-content: space-between;
   
 }
+
+.custom-upload-button:hover {
+  background-color: #665894;
+}
+
+.file-upload-input {
+  display: none;
+}
+
 
 .form-group input[type="file"] {
   border: none;
