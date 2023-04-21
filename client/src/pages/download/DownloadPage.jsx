@@ -13,6 +13,7 @@ const DownloadPage = () => {
   const [loading, setLoading] = useState(true);
   const [notebookName, setNotebookName] = useState('');
   const [notebookData, setNotebookData] = useState('');
+  const [readabilityScore, setReadabilityScore] = useState(0);
   const [originalHtmlOutput, setOriginalHtmlOutput] = useState('');
   const [notebookWidth] = useState('80%');
 
@@ -29,6 +30,7 @@ const DownloadPage = () => {
         setNotebookData(data.notebook);
         setHtmlOutput(data.html_output);
         setOriginalHtmlOutput(data.original_html_output);
+        setReadabilityScore(data.readability_score);
       })
       .catch((error) => {
         console.error(error);
@@ -68,6 +70,9 @@ const DownloadPage = () => {
           <Button className="download-button" onClick={downloadNotebook}>
             Download sorted Notebook
           </Button>
+          <div className="readability-score">
+            <p>Readability Score: {readabilityScore}%</p>
+          </div>
           <div className="centered-box">
             <Tabs defaultIndex={1}>
               <TabList>

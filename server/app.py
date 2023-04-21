@@ -67,7 +67,7 @@ def create_new_notebook(df_data, predictions):
             nb.cells.append(new_markdown_cell(source))
         elif cell_type == "code":
             nb.cells.append(new_code_cell(source))
-    print("DF:", df_data)
+    # print("DF:", df_data)
 
     # Save the new notebook to a BytesIO object
     notebook_data = io.BytesIO()
@@ -75,6 +75,31 @@ def create_new_notebook(df_data, predictions):
     notebook_data.seek(0)
 
     return notebook_data, nb
+
+
+def calculate_readability_score(predictions, df_data):
+    # Convert predictions from a Series to a list of cell IDs
+    predicted_cell_ids = predictions.tolist()[0].split(' ')
+
+    # Get the original order of cell IDs
+    original_order = df_data['cell_id'].tolist()
+
+    # print(f"original_order: {original_order}")
+    # print(f"predicted_order: {predicted_cell_ids}")
+    # Find the matching cell IDs
+    matching_cells = [original_order[i] for i in range(
+        len(original_order)) if original_order[i] == predicted_cell_ids[i]]
+
+    # Count the number of correctly placed cells
+    num_correctly_placed = sum([1 for i in range(
+        len(original_order)) if original_order[i] == predicted_cell_ids[i]])
+
+    # Calculate the readability score
+    score = (num_correctly_placed / len(original_order)) * 100
+
+    # Round the score to two decimal places
+    score = round(score, 2)
+    return score
 
 
 cache = {}
@@ -96,13 +121,13 @@ class UploadResource(Resource):
         filename = uuid.uuid4().hex[:14] + '.json'
 
         # Create the output directory if it doesn't exist
-        output_dir = "./output/"
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+        # output_dir = "./output/"
+        # if not os.path.exists(output_dir):
+        #     os.makedirs(output_dir)
 
-        # Write the JSON file to the output directory
-        with open(output_dir + filename, 'w') as f:
-            json.dump(df_data.to_dict(), f, indent=4)
+        # # Write the JSON file to the output directory
+        # with open(output_dir + filename, 'w') as f:
+        #     json.dump(df_data.to_dict(), f, indent=4)
         # Make predictions using the pre-trained model and the provided data
         predictions = predict(model, df_data)
         print("preds:", predictions.to_dict()[0])
@@ -125,7 +150,7 @@ class DownloadResource(Resource):
             df_data = cache[notebook_id]["df_data"]
             predictions = cache[notebook_id]["predictions"]
             original_notebook = cache[notebook_id]["original_notebook"]
-
+            score = calculate_readability_score(predictions, df_data)
             # Create the HTML output for both original and new notebooks
             exporter = HTMLExporter()
 
@@ -146,6 +171,7 @@ class DownloadResource(Resource):
                 'notebook': notebook_base64,
                 'html_output': html_output,
                 'original_html_output': original_html_output,
+                'readability_score': score,
             })
 
             return response
