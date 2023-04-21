@@ -9,8 +9,8 @@ const Header = () => {
         GROUP<span style={{ color: '#4327a1' }}> 16</span>
       </div>
       <h1 className="title">
-        <span style={{ color: '#e35420' }}>Notebook </span>
-        Cell Order Predictor
+        <span style={{ color: '#e35420' }}>Note</span>
+        Predict
       </h1>
       <div className="menu">
         <Link to="/" className="menu-item">
