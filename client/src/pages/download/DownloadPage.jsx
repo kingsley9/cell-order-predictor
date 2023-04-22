@@ -41,7 +41,7 @@ const DownloadPage = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [notebookId]);
+  }, []);
 
   const downloadNotebook = () => {
     const blob = new Blob([atob(notebookData)], {

@@ -10,31 +10,61 @@ const HomePage = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   function handleFileSelect(selectedFile) {
-    console.log(selectedFile?.name);
-    setFile(selectedFile);
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-    setLoading(true);
-    fetch(`${API_URL}/upload`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => {
-        setLoading(false);
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        console.log(data.predictions);
-        navigate(`/download/${data.notebook_id}`);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+    let fileToUpload;
 
+    if (typeof selectedFile === 'string') {
+      // Read the file at the specified path and create a File object from it
+      fetch(selectedFile)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to fetch file: ${response.status}`);
+          }
+          return response.blob();
+        })
+        .then((blob) => {
+          fileToUpload = new File([blob], selectedFile.split('/').pop());
+          console.log(fileToUpload?.name);
+          console.log(fileToUpload);
+
+          submitFile(fileToUpload);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      fileToUpload = selectedFile;
+      console.log(fileToUpload?.name);
+
+      submitFile(fileToUpload);
+    }
+
+    function submitFile(file) {
+      setFile(file);
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      setLoading(true);
+
+      fetch(`${API_URL}/upload`, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => {
+          setLoading(false);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          console.log(data.predictions);
+          navigate(`/download/${data.notebook_id}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
   function handleDrop(event) {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
@@ -80,9 +110,9 @@ const HomePage = () => {
         ) : (
           <FormGroup>
             <img
-             src="https://cdn-icons-png.flaticon.com/512/126/126477.png"
-             className="notebook-file"
-             ></img>
+              src="https://cdn-icons-png.flaticon.com/512/126/126477.png"
+              className="notebook-file"
+            ></img>
             <br></br>
             <Label htmlFor="fileUpload" className="custom-upload-button">
               Upload Notebook
@@ -106,7 +136,40 @@ const HomePage = () => {
           <div>Try one of our notebooks:</div>
         </div>
         <div className="suggestion-size">
-          <a href="#" class="suggestion-example-notebook">
+          <a
+            href="#"
+            className="suggestion-example-notebook"
+            onClick={() => handleFileSelect('/test.ipynb')}
+          >
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
+          </a>
+          <a
+            href="#"
+            className="suggestion-example-notebook"
+            onClick={() => handleFileSelect('/test2.ipynb')}
+          >
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
+          </a>
+          <a
+            href="#"
+            className="suggestion-example-notebook"
+            onClick={() => handleFileSelect('/test3.ipynb')}
+          >
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
+          </a>
+          {/* <a href="#" class="suggestion-example-notebook">
             <img
               src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
               alt="Example notebook"
@@ -126,14 +189,7 @@ const HomePage = () => {
               alt="Example notebook"
               className="rounded-example"
             ></img>
-          </a>
-          <a href="#" class="suggestion-example-notebook">
-            <img
-              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
-              alt="Example notebook"
-              className="rounded-example"
-            ></img>
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

@@ -6,12 +6,14 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        GROUP<span style={{ color: '#4327a1' }}> 16</span>
+        <a href="/" style={{ textDecoration: 'none' }}>
+          <h1>
+            <span style={{ color: '#e35420' }}>Note</span>
+            Predict
+          </h1>
+        </a>
       </div>
-      <h1 className="title">
-        <span style={{ color: '#e35420' }}>Note</span>
-        Predict
-      </h1>
+
       <div className="menu">
         <Link to="/" className="menu-item">
           Home
