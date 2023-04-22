@@ -74,12 +74,14 @@ const DownloadPage = () => {
         />
       ) : notebookData ? (
         <div style={{ flexDirection: 'column' }}>
-          <Button className="download-button" onClick={downloadNotebook}>
-            Download Sorted Notebook
-          </Button>
-          <Button className="home-button" onClick={handleHomeButton}>
-            Upload Another Notebook
-          </Button>
+          <div className="button-option">
+            <Button className="download-button" onClick={downloadNotebook}>
+              Download Sorted Notebook
+            </Button>
+            <Button className="home-button" onClick={handleHomeButton}>
+              Upload Another Notebook
+            </Button>
+          </div>
           <div className="readability-score">
             <p>Readability Score: {readabilityScore}%</p>
           </div>
