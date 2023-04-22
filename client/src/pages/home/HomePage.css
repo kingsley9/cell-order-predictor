@@ -11,9 +11,12 @@
     justify-content: center;
     height: 90vh;
     width: 100%;
+    background-color: #f0f0f0;
     background-image: url();
     background-size: 150%;
+    background-repeat: no-repeat;
     background-position: center;
+    
   }
   
   .home-upload-container {
@@ -22,7 +25,7 @@
     justify-content: center;
     margin-top: 50px;
     border: 1px solid rgba(128, 128, 128, 0.464);
-    background-color:#F0F0F0;
+    background-color:#f9f9f9;
     border-radius: 10px;
     width: 25rem;
     height: 20rem;
@@ -58,7 +61,7 @@
 .custom-upload-button {
 
   background-color: #4327a1;
-  color: white;
+  color: #F0F0F0;
   font-weight: bold;
   font-size: 20px;
   border: none;
@@ -70,7 +73,7 @@
 }
 
 .custom-upload-button:hover {
-  background-color: #665894;
+  background-color: #382575;
 }
 
 .file-upload-input {
@@ -97,6 +100,9 @@
 
 .suggestion-text {
   margin: auto;
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 4px;
 }
 
 .suggestion-size {
@@ -106,9 +112,9 @@
 .suggestion-example-notebook {
   display:inline-block;
   margin-top: 0px;
-  margin-left: 2px;
+  margin-left: 1px;
   margin-bottom: 0px;
-  margin-right: 2px;
+  margin-right: 1px;
   max-width: 40px;
   border-radius: 0.25rem;
   box-sizing: border-box;
@@ -116,4 +122,11 @@
 
 .rounded-example {
   width: 40px;
+}
+
+.notebook-file {
+  width: 10rem;
+  margin-left: 0.9rem;
+  margin-top: 3rem;
+  margin-bottom: 30px;
 }

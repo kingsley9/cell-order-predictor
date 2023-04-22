@@ -64,6 +64,11 @@ const HomePage = () => {
           </div>
         ) : (
           <FormGroup>
+            <img
+             src="https://cdn-icons-png.flaticon.com/512/126/126477.png"
+             className="notebook-file"
+             ></img>
+            <br></br>
             <Label htmlFor="fileUpload" className="custom-upload-button">
               Upload Notebook
             </Label>
