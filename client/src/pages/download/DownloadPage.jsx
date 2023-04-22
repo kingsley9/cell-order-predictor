@@ -7,6 +7,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { css } from '@emotion/react';
 import { ClipLoader } from 'react-spinners';
+import { useNavigate } from 'react-router-dom';
+
 const DownloadPage = () => {
   const { notebookId } = useParams();
   const [htmlOutput, setHtmlOutput] = useState('');
@@ -16,6 +18,7 @@ const DownloadPage = () => {
   const [readabilityScore, setReadabilityScore] = useState(0);
   const [originalHtmlOutput, setOriginalHtmlOutput] = useState('');
   const [notebookWidth] = useState('80%');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${API_URL}/download?notebook_id=${notebookId}`)
@@ -53,6 +56,10 @@ const DownloadPage = () => {
     document.body.removeChild(link);
   };
 
+  const handleHomeButton = () => {
+    navigate(`/`);
+  }
+
   return (
     <div className="download-container">
       {loading ? (
@@ -68,7 +75,10 @@ const DownloadPage = () => {
       ) : notebookData ? (
         <div style={{ flexDirection: 'column' }}>
           <Button className="download-button" onClick={downloadNotebook}>
-            Download sorted Notebook
+            Download Sorted Notebook
+          </Button>
+          <Button className="home-button" onClick={handleHomeButton}>
+            Upload Another Notebook
           </Button>
           <div className="readability-score">
             <p>Readability Score: {readabilityScore}%</p>

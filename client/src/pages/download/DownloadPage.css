@@ -39,6 +39,22 @@
   margin-bottom:50px;
   
 }
+
+.home-button {
+  background-color: #bd5d1d;
+  color: white;
+  font-weight: bold;
+  font-size: 19px;
+  border: none;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left:230px;
+  margin-bottom:50px;
+  
+}
+
 .download-button:hover {
   background-color: #664fb3;
 }
