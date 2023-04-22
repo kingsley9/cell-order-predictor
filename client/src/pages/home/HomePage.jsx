@@ -64,7 +64,7 @@ const HomePage = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              marginBottom: 'auto',
+              margin: 'auto',
             }}
           >
             <ClipLoader
