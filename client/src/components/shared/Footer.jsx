@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-text">
-        © 2023 Cell Order Predictor. All rights reserved.
+        © 2023 NotePredict. All rights reserved.
       </div>
       <div className="footer-links">
         <Link className="footer-link" to="/about">

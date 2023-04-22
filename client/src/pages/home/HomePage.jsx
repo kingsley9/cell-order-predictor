@@ -79,7 +79,7 @@ const HomePage = () => {
     <div className="home-container">
       <h1 className="file-upload-label">
         <span>
-          Upload Notebook to Reorder Cells <br></br> (Readability Analysis)
+          Upload a Python Notebook to<br></br> predict the right cell order
         </span>
       </h1>
       <div
