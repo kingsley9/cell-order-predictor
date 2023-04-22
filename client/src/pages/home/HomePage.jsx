@@ -11,8 +11,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  function handleFileSelect(event) {
-    const selectedFile = event.target.files[0];
+  function handleFileSelect(selectedFile) {
     console.log(selectedFile?.name);
     setFile(selectedFile);
     const formData = new FormData();
@@ -36,6 +35,16 @@ const HomePage = () => {
       });
   }
 
+  function handleDrop(event) {
+    event.preventDefault();
+    const droppedFile = event.dataTransfer.files[0];
+    handleFileSelect(droppedFile);
+  }
+
+  function handleDragOver(event) {
+    event.preventDefault();
+  }
+
   return (
     <div className="home-container">
       <h1 className="file-upload-label">
@@ -43,7 +52,13 @@ const HomePage = () => {
           Upload Notebook to Reorder Cells <br></br> (Readability Analysis)
         </span>
       </h1>
-      <div className="home-upload-container">
+      <div
+        className="home-upload-container"
+        onDragEnter={(e) => e.preventDefault()}
+        onDragLeave={(e) => e.preventDefault()}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
         {loading ? (
           <div
             style={{
@@ -72,13 +87,15 @@ const HomePage = () => {
             <Label htmlFor="fileUpload" className="custom-upload-button">
               Upload Notebook
             </Label>
+            <br></br>
+            <h3 className="drag-drop"> Or drag and drop </h3>
             <Input
               type="file"
               name="file"
               id="fileUpload"
               accept=".ipynb"
               className="file-upload-input"
-              onChange={handleFileSelect}
+              onChange={(e) => handleFileSelect(e.target.files[0])}
             />
           </FormGroup>
         )}
