@@ -1,7 +1,7 @@
 // footer.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 const Footer = () => {
   return (
@@ -12,6 +12,9 @@ const Footer = () => {
       <div className="footer-links">
         <Link className="footer-link" to="/about">
           About
+        </Link>
+        <Link className="footer-link" to="/termsOfService">
+          Terms of Service
         </Link>
       </div>
     </footer>
