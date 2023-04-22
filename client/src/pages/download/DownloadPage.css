@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 100%;
   width: 100%;
   padding: 40px;
   
@@ -28,6 +28,7 @@
 
 .button-option {
   text-align: center;
+  
 }
 
 .download-button {
