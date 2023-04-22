@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     background-image: url();
     background-size: 150%;
@@ -32,7 +32,7 @@
 
 .file-upload-label {
   display: inline-block;
-  margin-top: 50px;
+  margin-top: 0px;
   margin-bottom: 10px;
   font-weight: 700;
   font-size: 4rem;

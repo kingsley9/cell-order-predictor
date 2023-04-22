@@ -37,7 +37,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="home-container rounded border p-4">
+    <div className="home-container">
       <h1 className="file-upload-label">
         <span>
           Upload Notebook to Reorder Cells <br></br> (Readability Analysis)
@@ -64,7 +64,6 @@ const HomePage = () => {
           </div>
         ) : (
           <FormGroup>
-
             <Label htmlFor="fileUpload" className="custom-upload-button">
               Upload Notebook
             </Label>
@@ -78,8 +77,7 @@ const HomePage = () => {
             />
           </FormGroup>
         )}
-       </div>
-
+      </div>
       <div className="suggestion">
         <div className="suggestion-text">
           <div>No Notebook?</div>
@@ -87,20 +85,35 @@ const HomePage = () => {
         </div>
         <div className="suggestion-size">
           <a href="#" class="suggestion-example-notebook">
-            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
           </a>
           <a href="#" class="suggestion-example-notebook">
-            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
           </a>
           <a href="#" class="suggestion-example-notebook">
-            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
           </a>
           <a href="#" class="suggestion-example-notebook">
-            <img src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png" alt="Example notebook" className="rounded-example"></img>
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/file-format-set/64/2878-512.png"
+              alt="Example notebook"
+              className="rounded-example"
+            ></img>
           </a>
         </div>
-
-     
+      </div>
     </div>
   );
 };
