@@ -91,9 +91,9 @@ def calculate_readability_score(predictions, df_data):
         len(original_order)) if original_order[i] == predicted_cell_ids[i]]
 
     # Count the number of correctly placed cells
-    num_correctly_placed = sum([1 for i in range(
-        len(original_order)) if original_order[i] == predicted_cell_ids[i]])
-
+    num_incorrectly_placed = sum([1 for i in range(
+        len(original_order)) if original_order[i] != predicted_cell_ids[i]])
+    num_correctly_placed = len(original_order) - num_incorrectly_placed/2
     # Calculate the readability score
     score = (num_correctly_placed / len(original_order)) * 100
 

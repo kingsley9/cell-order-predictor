@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     background-image: url();
     background-size: 150%;
@@ -32,7 +32,7 @@
 
 .file-upload-label {
   display: inline-block;
-  margin-top: 50px;
+  margin-top: 0px;
   margin-bottom: 10px;
   font-weight: 700;
   font-size: 4rem;
@@ -50,8 +50,13 @@
   padding: 10px;
   cursor: pointer;
 }
+.form-group input[type="file"] {
+  visibility: hidden;
+}
 
-.file-upload-btn {
+
+.custom-upload-button {
+
   background-color: #4327a1;
   color: white;
   font-weight: bold;
@@ -61,21 +66,17 @@
   padding: 0.5rem 0.7rem;
   cursor: pointer;
   text-decoration: none;
-  align-self: flex-end;
-}
-
-.file-upload-btn:hover {
-    background-color: #665894;
-    
-  }
-.file-upload-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: 150px;
-  justify-content: space-between;
   
 }
+
+.custom-upload-button:hover {
+  background-color: #665894;
+}
+
+.file-upload-input {
+  display: none;
+}
+
 
 .form-group input[type="file"] {
   border: none;

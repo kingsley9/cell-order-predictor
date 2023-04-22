@@ -2,7 +2,6 @@
 
 # virtual environment folder
 /server_env
-requirements.txt
 __pycache__/
 /input
 /venv
