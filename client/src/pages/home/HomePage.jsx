@@ -79,7 +79,8 @@ const HomePage = () => {
     <div className="home-container">
       <h1 className="file-upload-label">
         <span>
-          Upload a Python Notebook to<br></br> predict the right cell order
+          Effortlessly Arrange Your Python Notebook <br></br> with AI-Powered
+          Cell Ordering
         </span>
       </h1>
       <div
