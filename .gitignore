@@ -1,3 +1,6 @@
 server/.env
 server/.DS_Store
 server/output/
+server/capstone-2023.cer
+server/server.tar.gz
+server/new.docx
