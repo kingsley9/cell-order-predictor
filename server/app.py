@@ -10,7 +10,8 @@ import uuid
 import json
 import pandas as pd
 import torch
-from md_cell_predictor import initialize_model, predict
+# from md_cell_predictor import initialize_model, predict
+from md_cell_predictor_v2 import predict_df
 from nbformat.v4 import new_notebook, new_markdown_cell, new_code_cell
 from nbconvert import HTMLExporter
 
@@ -23,7 +24,7 @@ CORS(app)  # enable CORS for all routes
 app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
 
 # Model
-model = initialize_model()
+# model = initialize_model()
 
 
 def notebook_to_dataframe(path, notebook_id):
@@ -54,8 +55,7 @@ def create_new_notebook(df_data, predictions):
 
     # Sort df_data based on the order of the predictions
     df_data = df_data.set_index('cell_id')
-    print("cell_iDs:", cell_ids)
-    print("DF:", df_data)
+
     df_data = df_data.loc[cell_ids]
     df_data = df_data.reset_index()
     for index, row in df_data.iterrows():
@@ -129,10 +129,7 @@ class UploadResource(Resource):
         # with open(output_dir + filename, 'w') as f:
         #     json.dump(df_data.to_dict(), f, indent=4)
         # Make predictions using the pre-trained model and the provided data
-        predictions = predict(model, df_data)
-        print("preds:", predictions.to_dict()[0])
-
-        # Create a new notebook based on the predictions
+        predictions = predict_df(df_data)
 
         cache[notebook_id] = {
             "df_data": df_data,
