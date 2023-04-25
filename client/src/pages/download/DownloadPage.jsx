@@ -29,7 +29,7 @@ const DownloadPage = () => {
         throw new Error('Network response was not ok.');
       })
       .then((data) => {
-        setNotebookName(`generated_notebook_${notebookId}.ipynb`);
+        setNotebookName(`sorted_notebook_${notebookId}.ipynb`);
         setNotebookData(data.notebook);
         setHtmlOutput(data.html_output);
         setOriginalHtmlOutput(data.original_html_output);
@@ -58,7 +58,7 @@ const DownloadPage = () => {
 
   const handleHomeButton = () => {
     navigate(`/`);
-  }
+  };
 
   return (
     <div className="download-container">

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import "./TermsOfService.css";
+import './TermsOfService.css';
 
 const TermsOfServicePage = () => {
   return (
-    <div className="container rounded border p-4">
+    <div className="container">
       <h1>Terms of Service</h1>
       <div className="">
         Welcome to our Python Notebook Grading Application ("the Application").
