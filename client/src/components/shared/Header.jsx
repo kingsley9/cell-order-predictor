@@ -7,7 +7,7 @@ const Header = () => {
     <div className="header">
       <div className="logo">
         <a href="/" style={{ textDecoration: 'none' }}>
-          <h1>
+          <h1 style={{ color: 'black' }}>
             <span style={{ color: '#e35420' }}>Note</span>
             Predict
           </h1>
