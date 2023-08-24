@@ -10,6 +10,7 @@ const HomePage = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   function handleFileSelect(selectedFile) {
     let fileToUpload;
 
@@ -65,6 +66,7 @@ const HomePage = () => {
         });
     }
   }
+
   function handleDrop(event) {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
@@ -85,8 +87,12 @@ const HomePage = () => {
       </h1>
       <div
         className="home-upload-container"
-        onDragEnter={(e) => e.preventDefault()}
-        onDragLeave={(e) => e.preventDefault()}
+        onDragEnter={(e) => {
+          e.preventDefault();
+        }}
+        onDragLeave={(e) => {
+          e.preventDefault();
+        }}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
